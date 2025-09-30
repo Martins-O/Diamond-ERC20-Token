@@ -2,12 +2,14 @@
 pragma solidity ^0.8.19;
 
 import {LibERC20Storage} from "../libraries/LibERC20Storage.sol";
+import {LibDiamond} from "../libraries/LibDiamond.sol";
 
 
 contract ERC20MintableFacet {
     event Transfer(address indexed from, address indexed to, uint256 value);
     
     function mint(address to, uint256 amount) external {
+        LibDiamond.enforceIsContractOwner();
         _mint(to, amount);
     }
     
